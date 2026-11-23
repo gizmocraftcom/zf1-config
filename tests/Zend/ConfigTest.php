@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,10 +28,16 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
+#[Group('Zend_Config')]
 class Zend_ConfigTest extends PHPUnit\Framework\TestCase
 {
+    protected $_all;
+    protected $_numericData;
+    protected $_menuData1;
+    protected $_leadingdot;
+    protected $_invalidkey;
+
     protected $_iniFileConfig;
     protected $_iniFileNested;
 
@@ -352,7 +359,6 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
 
     /**
      * ensure that modification is not allowed after calling setReadOnly()
-     *
      */
     public function testSetReadOnly()
     {
@@ -395,10 +401,7 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('parent', $parent->key->nested, '$parent has been overridden');
     }
 
-    /**
-     * @group ZF-3575
-     *
-     */
+    #[Group('ZF-3575')]
     public function testMergeHonoursAllowModificationsFlagAtAllLevels()
     {
         $config  = new Zend_Config(array('key' => array('nested' => 'yes'), 'key2' => 'yes'), false);
@@ -420,10 +423,7 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('no', $config2->key->nested);
     }
 
-    /**
-     * @group ZF-5771a
-     *
-     */
+    #[Group('ZF-5771a')]
     public function testUnsettingFirstElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Zend_Config(array(
@@ -445,10 +445,7 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('third', $keyList[2]);
     }
 
-    /**
-     * @group ZF-5771
-     *
-     */
+    #[Group('ZF-5771')]
     public function testUnsettingAMiddleElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Zend_Config(array(
@@ -470,10 +467,7 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('third', $keyList[2]);
     }
 
-    /**
-     * @group ZF-5771
-     *
-     */
+    #[Group('ZF-5771')]
     public function testUnsettingLastElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Zend_Config(array(
@@ -495,10 +489,7 @@ class Zend_ConfigTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('third', $keyList[2]);
     }
 
-    /**
-     * @group ZF-4728
-     *
-     */
+    #[Group('ZF-4728')]
     public function testSetReadOnlyAppliesToChildren()
     {
         $config = new Zend_Config($this->_all, true);

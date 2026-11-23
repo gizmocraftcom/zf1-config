@@ -20,6 +20,7 @@
  * @version    $Id: IniTest.php 18950 2009-11-12 15:37:56Z alexander $
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,10 +28,25 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
+#[Group('Zend_Config')]
 class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
 {
+    protected $_iniFileConfig;
+    protected $_iniFileAllSectionsConfig;
+    protected $_iniFileCircularConfig;
+    protected $_nonReadableConfig;
+    protected $_iniFileInvalid;
+    protected $_iniFileSameNameKeysConfig;
+    protected $_badIndentationConfig;
+    protected $_booleansConfig;
+    protected $_constantsConfig;
+    protected $_yamlInlineCommentsConfig;
+    protected $_yamlIndentedCommentsConfig;
+    protected $_yamlListConstantsConfig;
+    protected $_listBooleansConfig;
+    protected $_yamlSingleQuotedString;
+
     public function setUp(): void
     {
         $this->_iniFileConfig              = dirname(__FILE__) . '/_files/config.yaml';
@@ -289,9 +305,7 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         $this->assertFalse($config->usingCapitalOff);
     }
 
-    /**
-     * @group ZF-12277
-     */
+    #[Group('ZF-12277')]
     public function testParsesTypesAccordingToOneDotTwoSpecification()
     {
         $config = new Zend_Config_Yaml($this->_booleansConfig, 'production');
@@ -330,9 +344,7 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('ZEND_CONFIG_YAML_ENV_PATH/test/this', $config->path);
     }
 
-    /**
-     * @group ZF-11329
-     */
+    #[Group('ZF-11329')]
     public function testAllowsInlineCommentsInValuesUsingHash()
     {
         $config = new Zend_Config_Yaml($this->_yamlInlineCommentsConfig, null);
@@ -347,9 +359,7 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group ZF-11384
-     */
+    #[Group('ZF-11384')]
     public function testAllowsIndentedCommentsUsingHash()
     {
         $config = new Zend_Config_Yaml($this->_yamlIndentedCommentsConfig, null);
@@ -364,9 +374,7 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group ZF-11702
-     */
+    #[Group('ZF-11702')]
     public function testAllowsConstantsInLists()
     {
         if (!defined('ZEND_CONFIG_YAML_TEST_PATH')) {
@@ -378,9 +386,7 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(ZEND_CONFIG_YAML_TEST_PATH . '/library/test', $config->paths->{1});
     }
 
-    /**
-     * @group ZF-11702
-     */
+    #[Group('ZF-11702')]
     public function testAllowsBooleansInLists()
     {
         $config = new Zend_Config_Yaml($this->_listBooleansConfig, 'production');
@@ -414,18 +420,14 @@ class Zend_Config_YamlTest extends PHPUnit\Framework\TestCase
         $this->assertFalse($config->usingCapitalOff->{0});
     }
 
-    /**
-     * @group ZF-11934
-     */
+    #[Group('ZF-11934')]
     public function testAllowsSingleQuotedStringValues()
     {
         $config = new Zend_Config_Yaml($this->_yamlSingleQuotedString);
         $this->assertEquals('two', $config->one);
     }
 
-    /**
-    * @group ZF-11363
-    */
+    #[Group('ZF-11363')]
     public function testAllowsDashesInLists()
     {
         $config = new Zend_Config_Yaml($this->_iniFileSameNameKeysConfig, null);

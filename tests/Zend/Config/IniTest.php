@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
+#[Group('Zend_Config')]
 class Zend_Config_IniTest extends PHPUnit\Framework\TestCase
 {
     protected $_iniFileConfig;
@@ -248,9 +249,7 @@ class Zend_Config_IniTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-8159
-     */
+    #[Group('ZF-8159')]
     public function testZF8159()
     {
         $config = new Zend_Config_Ini(
@@ -270,7 +269,6 @@ class Zend_Config_IniTest extends PHPUnit\Framework\TestCase
 
     /*
      * @group ZF-5800
-     *
      */
     public function testArraysOfKeysCreatedUsingAttributesAndKeys()
     {

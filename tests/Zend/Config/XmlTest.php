@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
+#[Group('Zend_Config')]
 class Zend_Config_XmlTest extends PHPUnit\Framework\TestCase
 {
     protected $_xmlFileConfig;
@@ -295,7 +296,6 @@ EOT;
 
     /*
      * @group 3702
-     *
      */
     public function testLoadAnXMLString()
     {
@@ -328,7 +328,6 @@ EOT;
 
     /*
      * @group ZF-5800
-     *
      */
     public function testArraysOfKeysCreatedUsingAttributesAndKeys()
     {

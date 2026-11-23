@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -87,9 +88,7 @@ class Zend_Config_JsonTest extends PHPUnit\Framework\TestCase
         $this->assertFalse($config->special->false);
     }
 
-    /**
-     * @group review
-     */
+    #[Group('review')]
     public function testMultiDepthExtends()
     {
         $config = new Zend_Config_Json($this->_iniFileConfig, 'other_staging');

@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
+#[Group('Zend_Config')]
 class Zend_Config_Writer_XmlTest extends PHPUnit\Framework\TestCase
 {
     protected $_tempName;
@@ -138,9 +139,7 @@ class Zend_Config_Writer_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(null, @$config->production);
     }
 
-    /**
-     * @group ZF-6773
-     */
+    #[Group('ZF-6773')]
     public function testWriteMultidimensionalArrayWithNumericKeys()
     {
         $writer = new Zend_Config_Writer_Xml;
@@ -204,9 +203,7 @@ class Zend_Config_Writer_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('foo', $config->default->test);
     }
 
-    /**
-     * @group ZF-8234
-     */
+    #[Group('ZF-8234')]
     public function testRender()
     {
         $config = new Zend_Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
