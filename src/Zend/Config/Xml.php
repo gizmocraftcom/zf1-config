@@ -89,23 +89,26 @@ class Zend_Config_Xml extends Zend_Config
         }
 
         set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
-        if (strstr($xml, '<?xml')) {
-            $config = Zend_Xml_Security::scan($xml);
-        } else {
-            try {
-                if (!$config = Zend_Xml_Security::scanFile($xml)) {
+        try {
+            if (strstr($xml, '<?xml')) {
+                $config = Zend_Xml_Security::scan($xml);
+            } else {
+                try {
+                    if (!$config = Zend_Xml_Security::scanFile($xml)) {
+                        throw new Zend_Config_Exception(
+                            "Error failed to load $xml file"
+                        );
+                    }
+                } catch (Zend_Xml_Exception $e) {
                     throw new Zend_Config_Exception(
-                        "Error failed to load $xml file"
+                        $e->getMessage()
                     );
                 }
-            } catch (Zend_Xml_Exception $e) {
-                throw new Zend_Config_Exception(
-                    $e->getMessage()
-                );
             }
-        }
 
-        restore_error_handler();
+        } finally {
+            restore_error_handler();
+        }
         // Check if there was a error while loading file
         if ($this->_loadFileErrorStr !== null) {
             throw new Zend_Config_Exception($this->_loadFileErrorStr);
@@ -252,9 +255,7 @@ class Zend_Config_Xml extends Zend_Config
 
                         if ($dom->ownerDocument) {
                             $textNode = $dom->ownerDocument->createTextNode($constantValue);
-                            if ($textNode !== false) {
-                                $dom->replaceChild($textNode, $node);
-                            }
+                            $dom->replaceChild($textNode, $node);
                         }
 
                         break;
