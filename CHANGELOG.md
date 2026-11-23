@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0
+## 3.0.0
 
 Fork of `diablomedia/zendframework1-config`, published as `gizmocraft/zendframework1-config`.
 
